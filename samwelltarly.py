@@ -12,9 +12,16 @@ def parseHtml(html):
 
 def tokenizer(html):
     stopwords = []
+    
     with open("stopwords.txt", "r") as sw:
         stopwords = sw.readlines()
+    
+    stopwords = stopwords.split()
     page_content = parseHtml(html)
+    
+    for word in page_content(stopwords):
+        word.extract()
+    
     return page_content              
 
 def main():
