@@ -29,7 +29,8 @@ public class SiteCrawlerRunnable implements Runnable{
 	private String filePath;
 	private PriorityQueue<Link> queue; //maybe a TreeSet
 	private Long ThreadId;
-	private int counter;
+	private int iterationCounter;
+	private int fileNameCounter;
 	private ArrayList<String> forbiddenZone;
 	private ArrayList<String> linksVisited;
 	private String urlFragment;
@@ -43,11 +44,11 @@ public class SiteCrawlerRunnable implements Runnable{
 	public SiteCrawlerRunnable(String siteBaseUrl, String filePath, int counter) {
 		this.siteBaseUrl = siteBaseUrl;
 		this.filePath = filePath;
-		this.counter = counter;
+		this.iterationCounter = counter;
 		this.forbiddenZone = new ArrayList<String>();
 		this.linksVisited = new ArrayList<String>();
 		this.queue = new PriorityQueue<Link>(new LinkComparator());
-		counter = 0;
+		this.fileNameCounter = 0;
 	}
 
 	@Override
@@ -56,7 +57,7 @@ public class SiteCrawlerRunnable implements Runnable{
 		this.forbiddenZone = DisallowanceList(Arrays.asList(new String[] {"*",Config.userAgent}));
 		this.urlFragment = this.siteBaseUrl.substring(this.siteBaseUrl.indexOf("www.") + 4);
 		this.queue.add(new Link(this.siteBaseUrl));
-		while(!this.queue.isEmpty()) {
+		while(!this.queue.isEmpty() && iterationCounter > 0) {
 			visit();
 			try {
 				Thread.sleep(4 * 1000);
@@ -111,13 +112,13 @@ public class SiteCrawlerRunnable implements Runnable{
 	}
 
 	public void savePage(Document doc) throws IOException {
-		File f = new File(this.filePath + ThreadId + counter + ".html");
+		File f = new File(this.filePath + ThreadId + fileNameCounter + ".html");
 		Writer out = new OutputStreamWriter(new FileOutputStream(f), "UTF-8");
 		doc.select("a,script,.hidden,style,form,span").remove();
 		out.write(doc.outerHtml() + '\n');
 		out.write("site_url: " + doc.baseUri());
 		out.close();
-		counter +=1;
+		fileNameCounter +=1;
 	}
 	
 	//TODO: Aho-Corasick here

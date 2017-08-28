@@ -12,7 +12,6 @@ public class Main {
 		baseUrls.add("https://www.saraiva.com.br/");
 		baseUrls.add("https://www.mercadolivre.com.br/");
 		
-		
 		Iterator<String> it = baseUrls.iterator();
 		while(it.hasNext()) {
 			new Thread(new SiteCrawlerRunnable(it.next(),Config.filePath, 100)).start();
