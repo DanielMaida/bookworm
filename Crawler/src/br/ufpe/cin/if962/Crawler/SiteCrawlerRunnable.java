@@ -59,6 +59,7 @@ public class SiteCrawlerRunnable implements Runnable{
 		this.queue.add(new Link(this.siteBaseUrl));
 		while(!this.queue.isEmpty() && iterationCounter > 0) {
 			visit();
+			this.iterationCounter -= 1;
 			try {
 				Thread.sleep(4 * 1000);
 			} catch (InterruptedException e) {
@@ -114,7 +115,7 @@ public class SiteCrawlerRunnable implements Runnable{
 	public void savePage(Document doc) throws IOException {
 		File f = new File(this.filePath + ThreadId + fileNameCounter + ".html");
 		Writer out = new OutputStreamWriter(new FileOutputStream(f), "UTF-8");
-		doc.select("a,script,.hidden,style,form,span").remove();
+		doc.select("script,.hidden,style,form").remove();
 		out.write(doc.outerHtml() + '\n');
 		out.write("site_url: " + doc.baseUri());
 		out.close();
