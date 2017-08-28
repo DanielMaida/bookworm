@@ -33,7 +33,6 @@ public class SiteCrawlerRunnable implements Runnable{
 	private int fileNameCounter;
 	private ArrayList<String> forbiddenZone;
 	private ArrayList<String> linksVisited;
-	private String urlFragment;
 
 	/**
 	 * 
@@ -55,11 +54,9 @@ public class SiteCrawlerRunnable implements Runnable{
 	public void run() {
 		this.ThreadId = Thread.currentThread().getId();
 		this.forbiddenZone = DisallowanceList(Arrays.asList(new String[] {"*",Config.userAgent}));
-		this.urlFragment = this.siteBaseUrl.substring(this.siteBaseUrl.indexOf("www.") + 4);
 		this.queue.add(new Link(this.siteBaseUrl));
 		while(!this.queue.isEmpty() && iterationCounter > 0) {
 			visit();
-			this.iterationCounter -= 1;
 			try {
 				Thread.sleep(4 * 1000);
 			} catch (InterruptedException e) {
@@ -70,7 +67,8 @@ public class SiteCrawlerRunnable implements Runnable{
 
 	public void visit() {
 		//System.out.println(linksVisited);
-		while(this.linksVisited.contains(this.queue.peek().url)) {
+		while(this.linksVisited.contains(this.queue.peek().url) ||
+				this.linksVisited.contains(this.queue.peek().url + "#")) {
 			this.queue.poll();
 		}
 		
@@ -86,9 +84,11 @@ public class SiteCrawlerRunnable implements Runnable{
 				Document doc = response.parse();
 				if(link != doc.baseUri())//saves the url after page redirection
 					this.linksVisited.add(doc.baseUri());
+				doc.select(".hidden").remove();// remove hidden elements
 				Elements links = doc.select("a[href]"); // a with href
-				addLinks(this.urlFragment,links);
+				addLinks(this.siteBaseUrl,links);
 				savePage(doc);
+				this.iterationCounter -= 1;
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -109,13 +109,14 @@ public class SiteCrawlerRunnable implements Runnable{
 		//System.out.println(absUrl + " contains: " + baseUrl);
 		return absUrl.contains(baseUrl) && //if it's on the same site
 				!this.linksVisited.contains(absUrl) && //if it's already been visited
+				!this.linksVisited.contains(absUrl+"#") && 
 				!isOnTheForbiddenZone(absUrl); //if it's on the disallowed zone
 	}
 
 	public void savePage(Document doc) throws IOException {
 		File f = new File(this.filePath + ThreadId + fileNameCounter + ".html");
 		Writer out = new OutputStreamWriter(new FileOutputStream(f), "UTF-8");
-		doc.select("script,.hidden,style,form").remove();
+		doc.select("script,style").remove();
 		out.write(doc.outerHtml() + '\n');
 		out.write("site_url: " + doc.baseUri());
 		out.close();
