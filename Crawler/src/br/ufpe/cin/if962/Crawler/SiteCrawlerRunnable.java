@@ -84,7 +84,6 @@ public class SiteCrawlerRunnable implements Runnable{
 				Document doc = response.parse();
 				if(link != doc.baseUri())//saves the url after page redirection
 					this.linksVisited.add(doc.baseUri());
-				doc.select(".hidden").remove();// remove hidden elements
 				Elements links = doc.select("a[href]"); // a with href
 				addLinks(this.siteBaseUrl,links);
 				savePage(doc);
@@ -116,9 +115,8 @@ public class SiteCrawlerRunnable implements Runnable{
 	public void savePage(Document doc) throws IOException {
 		File f = new File(this.filePath + ThreadId + fileNameCounter + ".html");
 		Writer out = new OutputStreamWriter(new FileOutputStream(f), "UTF-8");
-		doc.select("script,style").remove();
 		out.write(doc.outerHtml() + '\n');
-		out.write("site_url: " + doc.baseUri());
+		out.write("site_url: " + doc.baseUri()); // saves page url
 		out.close();
 		fileNameCounter +=1;
 	}
