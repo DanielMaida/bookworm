@@ -79,6 +79,7 @@ public class SiteCrawlerRunnable implements Runnable{
 					.userAgent(Config.userAgent)
 					.referrer(Config.referrer)
 					.timeout(12000)
+					.ignoreContentType(true) //ignore content type here, to avoid errors but check before attempt to parse
 					.execute();
 			if(response.contentType().startsWith("text")) {
 				Document doc = response.parse();
