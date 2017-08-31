@@ -91,14 +91,13 @@ public class SiteCrawlerRunnable implements Runnable{
 				this.iterationCounter -= 1;
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
 	public void addLinks(String baseUrl,Elements links) {
 		for (Element link : links) {
-			String absUrl = link.absUrl("href");
+			String absUrl = link.absUrl("href").replace(" ", "%20");
 			if(validateUrl(baseUrl,absUrl)) {
 				this.queue.add(new Link(absUrl));
 			}
