@@ -14,7 +14,7 @@ public class Main {
 		baseUrls.add("https://www.mercadolivre.com.br/");
 		baseUrls.add("http://www.fnac.com.br/");
 		baseUrls.add("https://www.livrariacultura.com.br/");
-		baseUrls.add("https://http://www.casasbahia.com.br/");
+		baseUrls.add("http://www.casasbahia.com.br/");
 		baseUrls.add("https://www.amazon.com.br/");
 		baseUrls.add("https://www.estantevirtual.com.br/");
 		baseUrls.add("https://www.americanas.com.br/");
