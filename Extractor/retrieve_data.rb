@@ -34,11 +34,7 @@ class Retrieve_data
 				info.isbn = (clean_output (match_isbn.match line)[1]).force_encoding(::Encoding::UTF_8).gsub(/\s+/, "")
 			end
 		end		
-		puts info.title
-		puts info.author
-		puts info.publisher
-		puts info.price_physical
-		puts info.isbn
+		info
 	end
 
 
@@ -75,12 +71,7 @@ class Retrieve_data
 				end
 			end
 		end		
-		puts info.title
-		puts info.author
-		puts info.price_physical
-		puts info.publisher
-		puts info.pages
-		puts info.isbn
+		info
 	end
 
 
