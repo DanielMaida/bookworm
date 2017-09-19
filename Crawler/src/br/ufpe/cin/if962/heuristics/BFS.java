@@ -2,11 +2,10 @@ package br.ufpe.cin.if962.heuristics;
 
 import org.jsoup.nodes.Element;
 
-public class BFS implements Heuristic{
+public class BFS extends Heuristic{
 
 	@Override
 	public double score(Element element) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
