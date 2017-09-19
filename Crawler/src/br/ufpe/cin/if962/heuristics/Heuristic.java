@@ -1,4 +1,4 @@
-package br.ufpe.cin.if962.Heuristics;
+package br.ufpe.cin.if962.heuristics;
 
 import org.jsoup.nodes.Element;
 

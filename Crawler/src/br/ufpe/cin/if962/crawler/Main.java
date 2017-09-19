@@ -1,10 +1,10 @@
-package br.ufpe.cin.if962.Crawler;
+package br.ufpe.cin.if962.crawler;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import br.ufpe.cin.if962.Config.Config;
+import br.ufpe.cin.if962.config.Config;
 
 public class Main {
 	public static void main(String[] args) {

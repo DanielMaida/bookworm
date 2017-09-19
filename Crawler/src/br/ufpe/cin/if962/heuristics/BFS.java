@@ -1,8 +1,8 @@
-package br.ufpe.cin.if962.Heuristics;
+package br.ufpe.cin.if962.heuristics;
 
 import org.jsoup.nodes.Element;
 
-public class BattleTendency implements Heuristic {
+public class BFS implements Heuristic{
 
 	@Override
 	public double score(Element element) {

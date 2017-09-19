@@ -1,6 +1,6 @@
-package br.ufpe.cin.if962.Config;
+package br.ufpe.cin.if962.config;
 
-import br.ufpe.cin.if962.Heuristics.HeuristicType;;
+import br.ufpe.cin.if962.heuristics.HeuristicType;;
 
 public final class Config {
 	public static String userAgent = "Mozilla" ;

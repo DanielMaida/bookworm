@@ -1,4 +1,4 @@
-package br.ufpe.cin.if962.Crawler;
+package br.ufpe.cin.if962.crawler;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -17,11 +17,11 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import br.ufpe.cin.if962.Base.Link;
-import br.ufpe.cin.if962.Base.LinkComparator;
-import br.ufpe.cin.if962.Config.Config;
-import br.ufpe.cin.if962.Heuristics.Heuristic;
-import br.ufpe.cin.if962.Heuristics.HeuristicFactory;
+import br.ufpe.cin.if962.base.Link;
+import br.ufpe.cin.if962.base.LinkComparator;
+import br.ufpe.cin.if962.config.Config;
+import br.ufpe.cin.if962.heuristics.Heuristic;
+import br.ufpe.cin.if962.heuristics.HeuristicFactory;
 
 public class SiteCrawlerRunnable implements Runnable{
 	private String siteBaseUrl;
