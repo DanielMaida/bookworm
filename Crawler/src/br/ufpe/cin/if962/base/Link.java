@@ -1,4 +1,4 @@
-package br.ufpe.cin.if962.Base;
+package br.ufpe.cin.if962.base;
 
 public class Link {
 	public String url;
