@@ -1,12 +1,9 @@
 package br.ufpe.cin.if962.Crawler;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,6 +20,8 @@ import org.jsoup.select.Elements;
 import br.ufpe.cin.if962.Base.Link;
 import br.ufpe.cin.if962.Base.LinkComparator;
 import br.ufpe.cin.if962.Config.Config;
+import br.ufpe.cin.if962.Heuristics.Heuristic;
+import br.ufpe.cin.if962.Heuristics.HeuristicFactory;
 
 public class SiteCrawlerRunnable implements Runnable{
 	private String siteBaseUrl;
@@ -33,6 +32,7 @@ public class SiteCrawlerRunnable implements Runnable{
 	private int fileNameCounter;
 	private ArrayList<String> forbiddenZone;
 	private ArrayList<String> linksVisited;
+	private Heuristic heuristic;
 
 	/**
 	 * 
@@ -42,12 +42,13 @@ public class SiteCrawlerRunnable implements Runnable{
 	 */
 	public SiteCrawlerRunnable(String siteBaseUrl, String filePath, int counter) {
 		this.siteBaseUrl = siteBaseUrl;
-		this.filePath = filePath;
+		this.filePath = filePath + Config.heuristicType.toString() + "/";
 		this.iterationCounter = counter;
 		this.forbiddenZone = new ArrayList<String>();
 		this.linksVisited = new ArrayList<String>();
 		this.queue = new PriorityQueue<Link>(new LinkComparator());
 		this.fileNameCounter = 0;
+		this.heuristic = HeuristicFactory.getHeuristic(Config.heuristicType);
 	}
 
 	@Override
@@ -99,7 +100,7 @@ public class SiteCrawlerRunnable implements Runnable{
 		for (Element link : links) {
 			String absUrl = link.absUrl("href").replace(" ", "%20");
 			if(validateUrl(baseUrl,absUrl)) {
-				this.queue.add(new Link(absUrl));
+				this.queue.add(new Link(absUrl, heuristic.score(link)));
 			}
 		}
 	}
