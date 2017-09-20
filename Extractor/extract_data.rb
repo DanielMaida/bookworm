@@ -4,6 +4,7 @@ class Extract_data
 
   def extract_save(folder_path)
 
+  	check_delete_old
 		files = Dir["#{folder_path}/*.html"]
 		files.each do |path|
 			info = Info.new
@@ -71,10 +72,14 @@ class Extract_data
 		info
 	end
 
-  def save_to_file(text, path)
-  	if File.exist?(path)
+	def check_delete_old
+		if File.exist?("#{__dir__}/results.txt")
   		File.delete("#{__dir__}/results.txt")
   	end
+  end
+
+  def save_to_file(text, path)
+  	
   	open("#{__dir__}/results.txt", 'a:UTF-8') { |f|
   		text.each do |line|
   			if !(path.include? 'estantevirtual')
