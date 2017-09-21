@@ -22,7 +22,9 @@ public class StardustCrusaders extends Heuristic {
 	    {
 	    	add("autor");
 	    	add("author");
-	    	
+	    	add("vol");
+	    	add("capa dura");
+	    	add("ebook");
 	    }};
 	
 
@@ -38,6 +40,7 @@ public class StardustCrusaders extends Heuristic {
 			score += scoreAasABook(element);
 			score += scoreAasAProduct(element);
 			score += Math.min(numberOfLinksToPage/8, 0.5);
+			score += scoreALenghtAsAProduct(element);
 			//score -= hasKeyword(element.absUrl("href"))?(1/2):0;
 		}
 		return score;
@@ -77,6 +80,7 @@ public class StardustCrusaders extends Heuristic {
 		return Math.min(score, 1.5);
 	}
 	
+	/** procura keywords relacionadas a produto dentro do a */
 	private double scoreAasAProduct(Element element) {
 		Iterator<String> it = productStrings.iterator();
 		double score = 0;
@@ -85,7 +89,14 @@ public class StardustCrusaders extends Heuristic {
 				score += 0.25;
 			}
 		}
-			
 		return Math.min(score, 1.5);
 	}
+	
+	/**um a que linka para um produto costuma ter um tamanho muito maior do que um a que linka a uma subcategoria */
+	private double scoreALenghtAsAProduct(Element element) {
+		double score = 0;
+		score += element.toString().length()/500;
+		return Math.min(score,1);
+	}
+	
 }
