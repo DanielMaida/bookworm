@@ -1,4 +1,4 @@
-package br.ufpe.cin.if962.heuristics;
+package br.ufpe.cin.if962.factories.heuristics;
 
 import java.util.ArrayList;
 import org.jsoup.nodes.Element;
@@ -9,7 +9,17 @@ public abstract class Heuristic {
     	add("livro");
     	add("book");
     	add("leitura");
+    	//add("autor");
     }};
     
-	public abstract double score(Element element);
+    protected Boolean hasKeyword(String text) {
+    	for (String keyword : relevantStrings) {
+			if(text.toLowerCase().contains(keyword)) {
+				return true;
+			}
+		}
+    	return false;
+    }
+    
+	public abstract double score(Element element, String currentPageUrl, int numberOfLinksToPage);
 }
