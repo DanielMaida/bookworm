@@ -1,0 +1,566 @@
+##################/amazon01.html########################
+Title: Por que o Brasil É Um País Atrasado? - Pré Venda Autografada
+Author: Luiz Philippe de Orleans e Bragança
+Price: R$ 27,90
+Publisher: Novo Conceito (2 de outubro de 2017)
+Page number: 256
+ISBN: 8581638643
+##################/amazon02.html########################
+Title: Sejamos Todos Feministas
+Author: Chimamanda Ngozi Adichie
+Price: R$ 10,50
+Publisher: Companhia das Letras; Edição: 1ª (16 de março de 2015)
+Page number: 64
+ISBN: 8535925473
+##################/amazon03.html########################
+Title: Tartarugas Até Lá Embaixo
+Author: Green John
+Price: R$ 34,90
+Publisher: Intrínseca; Edição: 1ª (12 de outubro de 2017)
+Page number: 256
+ISBN: 8551002007
+##################/amazon04.html########################
+Title: Leonardo da Vinci
+Author: Walter Isaacson
+Price: R$ 61,74
+Publisher: Intrínseca (20 de outubro de 2017)
+Page number: 640
+ISBN: 8551002570
+##################/amazon05.html########################
+Title: O Homem que Buscava Sua Sombra. Millennium 5
+Author: David Lagercrantz
+Price: R$ 39,37
+Publisher: Companhia das Letras (7 de setembro de 2017)
+Page number: 360
+ISBN: 8535929797
+##################/amazon06.html########################
+Title: Conan. O Conquistador
+Author: Thomas Roy
+Price: R$ 127,29
+Publisher: Mythos; Edição: 1ª, Histórica (1 de dezembro de 2017)
+Page number: 440
+ISBN: 8578672798
+##################/amazon07.html########################
+Title: Kobane Calling
+Author: Vários Autores
+Price: R$ 40,19
+Publisher: Nemo; Edição: 1ª (25 de outubro de 2017)
+Page number: 272
+ISBN: 8582864213
+##################/amazon08.html########################
+Title: Lord of Shadows
+Author: Cassandra Clare
+Price: R$ 60,70
+Publisher: Margaret K. McElderry Books (23 de maio de 2017)
+Page number: 720
+ISBN: 1442468408
+##################/amazon09.html########################
+Title: American Gods: Author's Perferred Text
+Author: Neil Gaiman
+Price: R$ 48,50
+Publisher: William Morrow & Company; Edição: Tenth Anniversary ed. (5 de fevereiro de 2013)
+Page number: 541
+ISBN: 0062080237
+##################/amazon10.html########################
+Title: Shakespeare Box Set
+Author: William Shakespeare
+Price: R$ 44,85
+Publisher: Running Press; Edição: 01 (29 de março de 2016)
+Page number: 680
+ISBN: 0762459433
+##################/americanas01.html########################
+Title: Quatro Estações
+Author: Stephen King
+Price: R$ 43,90
+Publisher: Suma de Letras
+Page number: 560
+ISBN: 9788581050157
+##################/americanas02.html########################
+Title: O Coração da Esfinge
+Author: Colleen Houck
+Price: R$ 30,39
+Publisher: Arqueiro
+Page number: 368
+ISBN: 9788580416060
+##################/americanas03.html########################
+Title: Sherlock Holmes - Vol. 2
+Author: Arthur Conan Doyle
+Price: R$ 103,92
+Publisher: Editora Martin Claret
+Page number: 1322
+ISBN: 9788544000236
+##################/americanas04.html########################
+Title: Saga Encantadas
+Author: Sarah Pinborough
+Price: R$ 19,99
+Publisher: Única
+Page number: 672
+ISBN: 9788567028248
+##################/americanas05.html########################
+Title: O Guia do Mochileiro das Galáxias
+Author: Douglas Adams
+Price: R$ 49,90
+Publisher: Sextante
+Page number: 160
+ISBN: 9788599296943
+##################/americanas06.html########################
+Title: O Idiota
+Author: Fiodor Dostoievski
+Price: R$ 98,00
+Publisher: 34
+Page number: 600
+ISBN: 9788573262551
+##################/americanas07.html########################
+Title: Star Wars: A Coleção Definitiva de Action Figure
+Author: 
+Price: R$ 67,99
+Publisher: Bertrand Brasil
+Page number: 352
+ISBN: 9788528615715
+##################/americanas08.html########################
+Title: Livro - Senhor Dos Aneis 3 Vls
+Author: J.R.R. Tolkien
+Price: R$ 199,00
+Publisher: Martins Fontes
+Page number: -
+ISBN: 8533615671
+##################/americanas09.html########################
+Title: Dartana
+Author: Andre Vianco
+Price: R$ 49,58
+Publisher: Rocco
+Page number: 784
+ISBN: 9788568432846
+##################/americanas10.html########################
+Title: Eu Fico Loko 2: As Histórias que Tive Medo de Contar
+Author: Christian Figueiredo de Caldas
+Price: R$ 22,75
+Publisher: Novo Conceito
+Page number: 160
+ISBN: 9788581637822
+##################/casasbahia01.html########################
+Title: A Balada de Bob Dylan
+Author: Daniel Mark Epstein
+Price: 19,90
+Publisher: Zahar
+Page number: 524
+##################/casasbahia02.html########################
+Title: The Ship That Sailed To Mars
+Author: John Howe
+Price: 108,90
+Publisher: Dover Publications
+Page number: 200
+ISBN: 1606600176
+##################/casasbahia03.html########################
+Title: Thats What You Think!
+Author: Michael Madeja
+Price: 92,90
+Publisher: Die Gestalten Verlag
+Page number: 184
+ISBN: 3899557255
+##################/casasbahia04.html########################
+Title: Diálogo de Culturas
+Author: Leandro Karnal
+Price: 30,90
+Publisher: Contexto
+Page number: 192
+ISBN: 8552000164
+##################/casasbahia05.html########################
+Title: O Vendido
+Author: Paul Beatty
+Price: 48,90
+Publisher: Todavia Livros
+Page number: 318
+ISBN: 8593828027
+##################/casasbahia06.html########################
+Title: Coaching A Hora Da Virada
+Author: Mauricio Sita
+Price: 52,90
+Publisher: Editora Ser Mais
+Page number: 400
+ISBN: 8594550227
+##################/casasbahia07.html########################
+Title: Paz, Amor E Sgt. Pepper
+Author: William Pearson
+Price: 49,90
+Publisher: Bandup!
+Page number: 261
+ISBN: 8557620020
+##################/casasbahia08.html########################
+Title: A Mulher de Pés Descalços
+Author: Scholastique Mukasonga
+Price: 35,00
+Publisher: Nos
+Page number: 160
+ISBN: 856902018X
+##################/casasbahia09.html########################
+Title: Proposito - A Coragem De Ser Quem Somos
+Author: Sri Prem Baba
+Price: 17,90
+Publisher: Sextante
+ISBN: 8543104505
+##################/casasbahia10.html########################
+Title: Sapiens ? A Brief History Of Humankind
+Author: História
+Price: 44,90
+Publisher: L&PM
+Page number: 464
+ISBN: 8525432180
+##################/cultura01.html########################
+Title: SOFRIMENTO É OPCIONAL, O - COMO O ZEN BUDISMO PODE AJUDAR A LIDAR COM A DEPRESSÃO
+Author: COEN, MONJA
+Price: R$ 38,25
+Publisher: BELALETRA EDITORA
+Page number: 112
+ISBN: 8564431262
+##################/cultura02.html########################
+Title: ED E LORRAINE WARREN: LUGAR SOMBRIO - ARQUIVOS SOBRENATURAIS
+Author: WARREN, LORRAINE
+Price: R$ 41,90
+Publisher: DARKSIDE BOOKS
+Page number: 272
+ISBN: 8594540434
+##################/cultura03.html########################
+Title: WINTER OF THE WORLD
+Author: FOLLETT, KEN
+Price: R$ 35,00
+Publisher: PAN MACMILLAN
+Page number: 928
+ISBN: 0330460609
+##################/cultura04.html########################
+Title: FANTASTIC BEASTS AND WHERE TO FIND THEM - ILLUSTRATED EDITION
+Author: ROWLING, J.K.
+Price: R$ 97,67
+Publisher: BLOOMSBURY UK
+Page number: 160
+ISBN: 1408885263
+##################/cultura05.html########################
+Title: SANDMAN - EDIÇAO DEFINITIVA, V.1
+Author: GAIMAN, NEIL
+Price: R$ 123,25
+Publisher: PANINI LIVROS
+Page number: 612
+ISBN: 8573516534
+##################/cultura06.html########################
+Title: MAUS - A HISTORIA DE UM SOBREVIVENTE
+Author: SPIEGELMAN, ART
+Price: R$ 33,90
+Publisher: COMPANHIA DAS LETRAS
+Page number: 296
+ISBN: 8535906282
+##################/cultura07.html########################
+Title: BELCHIOR - APENAS UM RAPAZ LATINO-AMERICANO
+Author: MEDEIROS, JOTABE
+Price: R$ 24,90
+Publisher: TODAVIA LIVROS
+Page number: 240
+ISBN: 8593828124
+##################/cultura08.html########################
+Title: RITA LEE - UMA AUTOBIOGRAFIA
+Author: LEE, RITA
+Price: R$ 22,40
+Publisher: GLOBO LIVROS
+Page number: 296
+ISBN: 8525063304
+##################/cultura09.html########################
+Title: O CONTO DA AIA
+Author: ATWOOD, MARGARET
+Price: R$ 26,90
+Publisher: ROCCO
+Page number: 368
+ISBN: 8532520669
+##################/cultura10.html########################
+Title: OUTROS JEITOS DE USAR A BOCA
+Author: KAUR, RUPI
+Price: R$ 18,90
+Publisher: PLANETA DO BRASIL
+Page number: 208
+ISBN: 8542209303
+##################/estantevirtual01.html########################
+Title: O Diário de Anne Frank
+Author: Anne Frank
+Price: R$ 14,90
+Publisher: principis
+##################/estantevirtual02.html########################
+Title: Capitães da Areia
+Author: Jorge Amado
+Price: R$ 10,00
+Publisher: martins
+##################/estantevirtual03.html########################
+Title: O Príncipe
+Author: Maquiavel
+Price: R$ 7,66
+Publisher: edipro
+##################/estantevirtual04.html########################
+Title: The Underground Railroad: Os Caminhos Para a Liberdade
+Author: Colson Whitehead
+Price: R$ 32,78
+Publisher: harper collins
+##################/estantevirtual05.html########################
+Title: Quarto de Despejo - Diário de uma Favelada
+Author: Carolina Maria de Jesus
+Price: R$ 40,00
+Publisher: atica
+##################/estantevirtual06.html########################
+Title: A Mulher de Pés Descalços
+Author: Scholastique Mukasonga
+Price: R$ 25,00
+Publisher: nos
+##################/estantevirtual07.html########################
+Title: Dom Quixote
+Author: Miguel de Cervantes
+Price: R$ 7,90
+Publisher: atica
+##################/estantevirtual08.html########################
+Title: A Interpretação dos Sonhos
+Author: Sigmund Freud
+Price: R$ 20,00
+Publisher: imago
+##################/estantevirtual09.html########################
+Title: O Monge e o Executivo
+Author: James C. Hunter
+Price: R$ 8,00
+Publisher: sextante
+##################/estantevirtual10.html########################
+Title: Vampiro: a Máscara
+Author: Mark Rein Hagen
+Price: R$ 129,90
+Publisher: devir
+##################/fnac01.html########################
+Title: Watchmen: Internacional Edition
+Author: Moore, Alan
+Price: R$ 52,42
+ISBN: 1401248195
+##################/fnac02.html########################
+Title: The Hobbit
+Author: COLLINS DESIGN
+Price: R$ 23,92
+ISBN: 0007591861
+##################/fnac03.html########################
+Title: Frankenstein 1ª Ed. 2017
+Author: COLLECTOR`S LIBRARY
+Price: R$ 27,33
+ISBN: 1509827757
+##################/fnac04.html########################
+Title: Random Pride And Prejudice
+Author: BANTAM DOUBLEDAY DELL
+Price: R$ 12,97
+ISBN: 0553213105
+##################/fnac05.html########################
+Title: Scrum: A Arte De Fazer O Dobro Do Trabalho Na Metade Do Tempo 1º Edição 2016
+Author: Sutherland, Jeff
+Price: R$ 26,52
+ISBN: 8544104517
+##################/fnac06.html########################
+Title: Roubando o Fogo - A Ciência por Trás dos Super-Humanos 1ª Ed. 2017
+Author: Steven Kotler; Jamie Wheal
+Price: R$ 53,12
+ISBN: 8567389984
+##################/fnac07.html########################
+Title: Star Wars - Dívida de Honra 1ª Ed. 2017
+Author: Chuck Wendig
+Price: R$ 22,42
+ISBN: 8576573709
+##################/fnac08.html########################
+Title: Wild Cards - A Mão Do Homem Morto Vol. 7 1ª Ed. 2017
+Author: George R. R. Martin (coord.)
+Price: R$ 37,92
+ISBN: 8544104975
+##################/fnac09.html########################
+Title: Atlântida: O Gene 1º Ed. 2016
+Author: A. G. Riddle
+Price: R$ 45,52
+ISBN: 8525060445
+##################/fnac10.html########################
+Title: Sociedade da rosa
+Author: Marie Lu
+Price: R$ 26,22
+ISBN: 8579803071
+##################/magazineluiza01.html########################
+Title: One Punch Man 1
+Author: YUSUKE MURATA
+Price: 16,90
+Publisher: ininaP
+ISBN: 9788542603
+##################/magazineluiza02.html########################
+Title: Supremos, Os
+Author: VARIOS
+Price: 84,00
+Publisher: 1 loV
+ISBN: 8573518731
+##################/magazineluiza03.html########################
+Title: Filho De Netuno, O
+Author: RICK RIORDAN
+Price: 49,90
+Publisher: acesnirtnI
+ISBN: 8580571804
+##################/magazineluiza04.html########################
+Title: Pula Gato
+Author: MARILDA CASTANHA
+Price: 44,80
+ISBN: 8526268260
+##################/magazineluiza05.html########################
+Title: Ponte Para O Passado, A
+Author: IVAN JAF
+Price: 47,90
+Publisher: lautA
+ISBN: 8570564678
+##################/magazineluiza06.html########################
+Author: 
+##################/magazineluiza07.html########################
+Title: Memorias Do Livro, As
+Author: GERALDINE BROOKS
+Price: 44,90
+Publisher: obolG
+ISBN: 852506100X
+##################/magazineluiza08.html########################
+Title: Proteja-Me
+Author: JULIETTE FAY
+Price: 39,90
+Publisher: eM
+ISBN: 9788581632
+##################/magazineluiza09.html########################
+Title: Clube Da Luta
+Author: CHUCK PALAHNIUK
+Price: 39,90
+Publisher: ayeL
+ISBN: 8580444497
+##################/magazineluiza10.html########################
+Title: Ano De 1993, O
+Author: JOSE SARAMAGO
+Price: 39,90
+Publisher: sarteL saD aiC
+ISBN: 8535911073
+##################/saraiva02.html########################
+Title: Origem 
+Author: Brown,Dan
+Price: R$ 49,90
+Publisher: Arqueiro
+Page number: 432
+ISBN: 9788580417661
+##################/saraiva03.html########################
+Title: Como Se Casar Com Um Marquês ? Agentes da Coroa - Livro 2 
+Author: Quinn,Julia
+Price: R$ 32,90
+Publisher: Arqueiro
+Page number: 320
+ISBN: 9788580417616
+##################/saraiva04.html########################
+Title: Destinos Cruzados - Estradas Que Se Atraem, Corações Que Se Completam 
+Author: Paes, Mirela
+Price: R$ 35,80
+Publisher: Qualis
+Page number: 150
+ISBN: 9788568839577
+##################/saraiva05.html########################
+Title: O Homem Mais Inteligente da História 
+Author: Cury,Augusto
+Price: R$ 24,90
+Publisher: Sextante / Gmt
+Page number: 272
+ISBN: 9788543104355
+##################/saraiva06.html########################
+Title: Akira - Vol. 1 
+Author: Otomo,Katsuhiro
+Price: R$ 48,90
+Publisher: Jbc
+Page number: 365
+ISBN: 9788545702870
+##################/saraiva07.html########################
+Title: Demolidor - A Queda de Murdock 
+Author: Marvel
+Price: R$ 35,40
+Publisher: Panini Comics
+Page number: 245
+ISBN: 9788573516623
+##################/saraiva08.html########################
+Title: O Peso Das Dietas 
+Author: Deram, Sophie
+Price: R$ 39,90
+Publisher: CMS
+Page number: 320
+ISBN: 9788567087016
+##################/saraiva09.html########################
+Title: Otolina e A Raposa Roxa 
+Author: Riddell,Chris
+Price: R$ 49,90
+Publisher: Galerinha Record
+Page number: 184
+ISBN: 9788501110992
+##################/saraiva10.html########################
+Title: Edgar Allan Poe - Col. Medo Clássico 
+Author: Poe,Edgar Allan
+Price: R$ 37,90
+Publisher: Darkside Books
+Page number: 384
+ISBN: 9788594540249
+##################/submarino01.html########################
+Title: Livro - Fragmentos do Horror
+Author: Junji Ito
+Price: R$ 34,90
+Publisher: Darkside Books
+Page number: 224
+ISBN: 9788594540362
+##################/submarino02.html########################
+Title: Livro - Legião
+Author: Willian Peter Blatty
+Price: R$ 34,90
+Publisher: Darkside Books
+Page number: 304
+ISBN: 9788594540331
+##################/submarino03.html########################
+Title: Livro - O Orfanato da Srta.peregrine para Crianças Peculiares
+Author: Ransom Riggs
+Price: R$ 59,88
+Publisher: Leya
+Page number: 336
+ISBN: 9788544102848
+##################/submarino04.html########################
+Title: Livro - Evangelho de Sangue
+Author: Clive Barker
+Price: R$ 71,86
+Publisher: Darkside
+Page number: 320
+ISBN: 9788566636857
+##################/submarino05.html########################
+Title: Livro - O Iluminado
+Author: Stephen King
+Price: R$ 43,99
+Publisher: Suma de Letras
+Page number: 288
+ISBN: 9788581050485
+##################/submarino06.html########################
+Title: Livro - O Menino que Desenhava Monstros
+Author: Keith Donohue
+Price: R$ 26,90
+Publisher: Darkside Books
+Page number: 256
+ISBN: 9788594540010
+##################/submarino07.html########################
+Title: Livro - Deuses Americanos
+Author: Neil Gaiman
+Price: R$ 47,99
+Publisher: Intrinseca
+Page number: 576
+ISBN: 9788551000724
+##################/submarino08.html########################
+Title: Livro - Battle Royale
+Author: Koushun
+Price: R$ 35,99
+Publisher: Editora Globo
+Page number: 664
+ISBN: 9788525056122
+##################/submarino09.html########################
+Title: Livro - Box As Crônicas de Artur (3 Volumes)
+Author: Bernard Conrwell
+Price: R$ 49,90
+Publisher: Editora Record
+Page number: 1586
+ISBN: 9788501300171
+##################/submarino10.html########################
+Title: Livro - Social Killers: Amigos Virtuais, Assassinos Reais .com
+Author: Jj Slate
+Price: R$ 33,90
+Publisher: Darkside
+Page number: 272
+ISBN: 9788566636451
