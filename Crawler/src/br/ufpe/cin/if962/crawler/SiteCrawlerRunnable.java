@@ -24,15 +24,16 @@ import br.ufpe.cin.if962.factories.heuristics.HeuristicFactory;
 import br.ufpe.cin.if962.factories.queues.QueueFactory;
 
 public class SiteCrawlerRunnable implements Runnable{
+	
 	private String siteBaseUrl;
 	private String filePath;
 	private Queue<Link> queue; //maybe a TreeSet
 	private Long ThreadId;
 	private int iterationCounter;
 	private int fileNameCounter;
-	private ArrayList<String> forbiddenZone;
 	private ArrayList<String> linksVisited;
 	private Heuristic heuristic;
+	private RobotsTxtManager robotsTxtManager;
 
 	/**
 	 * 
@@ -44,22 +45,21 @@ public class SiteCrawlerRunnable implements Runnable{
 		this.siteBaseUrl = siteBaseUrl;
 		this.filePath = filePath + Config.heuristicType.toString() + "/";
 		this.iterationCounter = counter;
-		this.forbiddenZone = new ArrayList<String>();
 		this.linksVisited = new ArrayList<String>();
 		this.queue = QueueFactory.getQueue(Config.queueType);
 		this.fileNameCounter = 0;
 		this.heuristic = HeuristicFactory.getHeuristic(Config.heuristicType);
+		this.robotsTxtManager = new RobotsTxtManager(Config.userAgentList, getRobotsTxt());
 	}
 
 	@Override
 	public void run() {
 		this.ThreadId = Thread.currentThread().getId();
-		this.forbiddenZone = DisallowanceList(Arrays.asList(new String[] {"*",Config.userAgent}));
 		this.queue.add(new Link(this.siteBaseUrl));
 		while(!this.queue.isEmpty() && iterationCounter > 0) {
 			visit();
 			try {
-				Thread.sleep(4 * 1000);
+				Thread.sleep(Config.delayBetweenRequests);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -67,15 +67,12 @@ public class SiteCrawlerRunnable implements Runnable{
 	}
 
 	public void visit() {
-		//System.out.println(linksVisited);
-		while(this.linksVisited.contains(this.queue.peek().url) ||
-				this.linksVisited.contains(this.queue.peek().url + "#")) {
+		while(this.linksVisited.contains(this.queue.peek().url)) {
 			this.queue.poll();
 		}
 		Link nextPage = this.queue.poll();
 		String currentPageUrl = nextPage.url;
 		System.out.println(currentPageUrl + "------------------------------------------------------------| score: " + nextPage.rank );
-		
 		this.linksVisited.add(currentPageUrl);
 		this.linksVisited.add(currentPageUrl + "#"); 
 		try {
@@ -83,7 +80,7 @@ public class SiteCrawlerRunnable implements Runnable{
 					.userAgent(Config.userAgent)
 					.referrer(Config.referrer)
 					.timeout(12000)
-					.ignoreContentType(true) //ignore content type here, to avoid errors but check before attempt to parse
+					.ignoreContentType(true) //ignore content type here, to avoid errors but check before attempting to parse
 					.execute();
 			if(response.contentType().startsWith("text")) {
 				Document doc = response.parse();
@@ -104,21 +101,21 @@ public class SiteCrawlerRunnable implements Runnable{
 
 	public void addLinks(String baseUrl,Elements links, String currentPageUrl) {
 		for (Element link : links) {
+			
 			String absUrl = link.absUrl("href").replace(" ", "%20");
+			
 			if(validateUrl(baseUrl,absUrl)) {
 				int linksCount = (int) links.stream().filter(e -> e.absUrl("href").equals(link.absUrl("href"))).count();
-				//System.out.println(linksCount);
 				this.queue.add(new Link(absUrl, heuristic.score(link, currentPageUrl,linksCount)));
 			}
-		}
+			
+		}	
 	}
 
 	public Boolean validateUrl(String baseUrl,String absUrl) {
-		//System.out.println(absUrl + " contains: " + baseUrl);
 		return absUrl.contains(baseUrl) && //if it's on the same site
 				!this.linksVisited.contains(absUrl) && //if it's already been visited
-				!this.linksVisited.contains(absUrl+"#") && 
-				!isOnTheForbiddenZone(absUrl); //if it's on the disallowed zone
+				robotsTxtManager.isAllowed(absUrl); //if it's allowed
 	}
 
 	public void savePage(Document doc) throws IOException {
@@ -131,19 +128,8 @@ public class SiteCrawlerRunnable implements Runnable{
 		fileNameCounter +=1;
 	}
 	
-	//TODO: Aho-Corasick here
-	public Boolean isOnTheForbiddenZone(String absUrl) {
-		Boolean isOnTheForbiddenZone = false;
-		for (String term : forbiddenZone) {//yikes
-			if(absUrl.contains(term)) {
-				isOnTheForbiddenZone = true;
-			}
-		}
-		return isOnTheForbiddenZone;
-	}
-
-	public ArrayList<String> DisallowanceList(List<String> userAgentList) {
-		ArrayList<String> disallowanceList = new ArrayList<String>();
+	public String getRobotsTxt() {
+		String pageText = "";
 		try {
 			Response response = Jsoup.connect(this.siteBaseUrl + "robots.txt")
 					.userAgent(Config.userAgent)
@@ -152,32 +138,11 @@ public class SiteCrawlerRunnable implements Runnable{
 					.execute();
 			Document doc = response.parse();
 			doc.outputSettings(new Document.OutputSettings().prettyPrint(false));
-			String pageText = doc.select("body").html();
-			HashMap<String, ArrayList<String>> userAgentDisallowancesMap = parseDisallowances(pageText);
-
-			for (String userAgent : userAgentList) {
-				disallowanceList.addAll(userAgentDisallowancesMap.getOrDefault(userAgent, new ArrayList<String>()));
-			}
+			pageText = doc.select("body").html();
 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return disallowanceList;
-	}
-
-	private HashMap<String,ArrayList<String>> parseDisallowances(String text){
-		HashMap<String, ArrayList<String>> map = new HashMap<String,ArrayList<String>>();
-		text = text.replaceAll(" ", "");
-		String[] lines = text.split("\n");
-		String userAgent = "";
-		for (String line : lines) {
-			if(line.toLowerCase().startsWith("user-agent")) {
-				userAgent = line.substring(line.lastIndexOf(":")+1);
-				map.put(userAgent, new ArrayList<String>());
-			}else if(line.startsWith("Disallow")) {
-				map.get(userAgent).add(line.substring(line.lastIndexOf(":")+1));
-			}
-		}
-		return map;
+		return pageText;
 	}
 }
