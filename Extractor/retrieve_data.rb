@@ -3,12 +3,69 @@
 #- saraiva done
 #- casas bahia done/
 #- amazon done/
-#- mercado livre
+#- livraria folha done/
 #- estante virtual done/
 #- americanas done/
 #- submarino done
 #- magazine luiza done
 class Retrieve_data
+
+	def retrieve_folha(path)
+		info = Info.new
+		info.price_physical = ''
+		match_title = />(T.*?tulo):</
+		match_author = />(Autor):</
+		match_price = /<ins>.*: (.*)<\/i/
+		match_isbn = />(ISBN):</
+		match_weight = />(Peso):</
+		match_dimensions = />(Dimens.*?es):</
+		match_especifications = />(Especifica.*?es):</
+		match_language = />(Idioma):</
+		match_year = />(Ano):</
+		match_edition = />(Edi.*?o):</
+		match_publisher = />(Editora):</
+		file_lines = read_file path
+		file_lines.each_with_index do |line, i|
+			if match_title =~ line
+				info.title = (/>(.*)</.match file_lines[i + 1])[1]
+			end
+			if match_author =~ line
+				if file_lines[i + 1].include? 'href'
+					info.author = (/">(.*)</.match file_lines[i + 1])[1].to_s
+				else
+					info.author = (/>(.*)</.match file_lines[i + 1])[1].to_s
+				end
+			end
+			if match_price =~ line && info.price_physical == ''
+				info.price_physical = (match_price.match line)[1]
+			end
+			if match_isbn =~ line
+				info.isbn = (/>(.*)</.match file_lines[i + 1])[1].to_s
+			end
+			if match_weight =~ line
+				info.weight = (/>(.*)</.match file_lines[i + 1])[1].to_s
+			end
+			if match_dimensions =~ line
+				info.dimensions = (/>(.*)</.match file_lines[i + 1])[1].to_s
+			end
+			if match_especifications =~ line
+				info.especifications = (/>(.*)</.match file_lines[i + 1])[1].to_s
+			end
+			if match_language =~ line
+				info.language = (/>(.*)</.match file_lines[i + 1])[1].to_s
+			end
+			if match_year =~ line
+				info.year = (/>(.*)</.match file_lines[i + 1])[1].to_s
+			end
+			if match_edition =~ line
+				info.edition = (/>(.*)</.match file_lines[i + 1])[1].to_s
+			end
+			if match_publisher =~ line
+				info.publisher = (/>(.*)</.match file_lines[i + 1])[1].to_s
+			end
+		end
+		info
+	end
 
 	def retrieve_magazine_luiza(path)
 		info = Info.new
@@ -383,4 +440,10 @@ class Info
 	attr_accessor :price_physical
 	attr_accessor :pages
 	attr_accessor :isbn
+	attr_accessor :weight
+	attr_accessor :dimensions
+	attr_accessor :especifications
+	attr_accessor :language
+	attr_accessor :year
+	attr_accessor :edition
 end

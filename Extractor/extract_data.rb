@@ -17,21 +17,21 @@ class Extract_data
 				if !info.title.nil?
 					text.push("Title: #{info.title}")
 				end
-	  		if !info.author.nil?
-	  			text.push("Author: #{info.author}")
-	  		end
-	  		if !info.price_physical.nil?
-	  			text.push("Price: #{info.price_physical}")
-	  		end
-	  		if !info.publisher.nil?
-	  			text.push("Publisher: #{info.publisher}")
-	  		end
-	  		if !info.pages.nil?
-	  			text.push("Page number: #{info.pages}")
-	  		end
-	   	  if !info.isbn.nil?
-	   	  	text.push("ISBN: #{info.isbn}")
-	   	  end
+		  		if !info.author.nil?
+		  			text.push("Author: #{info.author}")
+		  		end
+		  		if !info.price_physical.nil?
+		  			text.push("Price: #{info.price_physical}")
+		  		end
+		  		if !info.publisher.nil?
+		  			text.push("Publisher: #{info.publisher}")
+		  		end
+		  		if !info.pages.nil?
+		  			text.push("Page number: #{info.pages}")
+		  		end
+		   	    if !info.isbn.nil?
+		   	  	    text.push("ISBN: #{info.isbn}")
+		   	    end
 			end
    	  save_to_file(text, path)
 		end
@@ -52,6 +52,9 @@ class Extract_data
 		end
 		if path.include?('fnac')
 			info = retrieve_data.retrieve_fnac path
+		end
+		if path.include?('folha')
+			info = retrieve_data.retrieve_folha path 
 		end
 		if path.include?('casasbahia')
 			info = retrieve_data.retrieve_casas_bahia path
@@ -82,14 +85,16 @@ class Extract_data
   	
   	open("#{__dir__}/results.txt", 'a:UTF-8') { |f|
   		text.each do |line|
-  			if !(path.include? 'estantevirtual')
+  			if !(path.include? 'estantevirtual') && !(path.include? 'folha')
   				f.puts line.encode("iso-8859-1", invalid: :replace, undef: :replace).force_encoding("utf-8")
   			else
-  				f.puts line
+  				if (path.include? 'folha')
+  					f.puts line.encode("windows-1252", invalid: :replace, undef: :replace).force_encoding("utf-8")
+  				else
+  					f.puts line
+  				end
   			end
   		end
 		}
 	end
 end
-
-Extract_data.new.extract_save("C:/Users/jpms2/Desktop/RI/bookworm/Classifier/html/positives")
