@@ -1,4 +1,4 @@
-package br.ufpe.cin.if962.heuristics;
+package br.ufpe.cin.if962.factories.heuristics;
 
 public class HeuristicFactory {
 	public static Heuristic getHeuristic(HeuristicType type) {
