@@ -32,7 +32,7 @@ classifiers = [
     DecisionTreeClassifier(max_depth=5),
     LinearSVC(),
     LogisticRegression(),
-    MLPClassifier()
+    MLPClassifier(alpha=0.5)
 ]
 
 op = OptionParser()
@@ -91,32 +91,19 @@ def main():
 
         classifier = classifier.fit(X_train, y_train)
         
-        print("Training score: {0:.1f}%".format(
-        classifier.score(X_train, y_train) * 100))
-        
-        X_test = vectorizer.transform(test_subset.data).todense()
-        y_test = test_subset.target
-        
-        predicted = classifier.predict(X_test)
-        print(metrics.classification_report(y_test, predicted,
-        target_names=test_subset.target_names))
-        
         with open(opt.filename, "r") as input_data:
             dt = vectorizer.transform([input_data.read()])
             predict = classifier.predict(dt.toarray())
-            print(predict)
+            print("Is relevant?", predict)
+            return predict
         
-
-    
-    
-
 def runBenchmark(train_subset,test_subset):
     
     print("Initializing vectorizer...")
     t0 = time()
     
-    vectorizer = TfidfVectorizer(getStopwords())
-    X_train = vectorizer.fit_transform(train_subset.data)
+    vectorizer = CountVectorizer(stop_words=getStopwords())
+    X_train = vectorizer.fit_transform(train_subset.data).todense()
     y_train = train_subset.target
     
     duration = time() - t0
@@ -135,11 +122,12 @@ def runBenchmark(train_subset,test_subset):
 
         X_test = vectorizer.transform(test_subset.data).todense()
         y_test = test_subset.target
-        print(4*" ","Testing score: {0:.1f}%".format(
-        clf.score(X_test, y_test) * 100))
+        
+        predicted = clf.predict(X_test)
+        print(metrics.classification_report(y_test, predicted,
+        target_names=test_subset.target_names))
+        print("Accuracy: ",metrics.accuracy_score(y_test, predicted))
     
-
-
 def getStopwords():
     stopwords_string = ""
     with open("stopwords.txt", "r") as stp:
