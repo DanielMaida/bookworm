@@ -72,7 +72,7 @@ public class SiteCrawlerRunnable implements Runnable{
 		}
 		Link nextPage = this.queue.poll();
 		String currentPageUrl = nextPage.url;
-		System.out.println(currentPageUrl + "------------------------------------------------------------| score: " + nextPage.rank );
+		//System.out.println(currentPageUrl + "------------------------------------------------------------| score: " + nextPage.rank );
 		this.linksVisited.add(currentPageUrl);
 		this.linksVisited.add(currentPageUrl + "#"); 
 		try {
