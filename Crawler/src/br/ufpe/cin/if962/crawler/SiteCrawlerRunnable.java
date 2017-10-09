@@ -67,10 +67,14 @@ public class SiteCrawlerRunnable implements Runnable{
 	}
 
 	public void visit() {
-		while(this.linksVisited.contains(this.queue.peek().url)) {
+		//change visit method to avoid nullpointer exceptions
+		while(this.queue.peek() != null && this.linksVisited.contains(this.queue.peek().url)) {
 			this.queue.poll();
 		}
 		Link nextPage = this.queue.poll();
+		if(nextPage == null) {
+			return;
+		}
 		String currentPageUrl = nextPage.url;
 		//System.out.println(currentPageUrl + "------------------------------------------------------------| score: " + nextPage.rank );
 		this.linksVisited.add(currentPageUrl);
