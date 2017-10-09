@@ -28,12 +28,12 @@ public class SiteCrawlerRunnable implements Runnable{
 	private String siteBaseUrl;
 	private String filePath;
 	private Queue<Link> queue; //maybe a TreeSet
-	private Long ThreadId;
 	private int iterationCounter;
 	private int fileNameCounter;
 	private ArrayList<String> linksVisited;
 	private Heuristic heuristic;
 	private RobotsTxtManager robotsTxtManager;
+	private String webSiteName;
 
 	/**
 	 * 
@@ -50,11 +50,11 @@ public class SiteCrawlerRunnable implements Runnable{
 		this.fileNameCounter = 0;
 		this.heuristic = HeuristicFactory.getHeuristic(Config.heuristicType);
 		this.robotsTxtManager = new RobotsTxtManager(Config.userAgentList, getRobotsTxt());
+		this.webSiteName = siteBaseUrl.substring(getFirstIndex(siteBaseUrl),siteBaseUrl.indexOf(".com")).replace(".","");
 	}
 
 	@Override
-	public void run() {
-		this.ThreadId = Thread.currentThread().getId();
+	public void run() {	
 		this.queue.add(new Link(this.siteBaseUrl));
 		while(!this.queue.isEmpty() && iterationCounter > 0) {
 			visit();
@@ -72,7 +72,7 @@ public class SiteCrawlerRunnable implements Runnable{
 		}
 		Link nextPage = this.queue.poll();
 		String currentPageUrl = nextPage.url;
-		System.out.println(currentPageUrl + "------------------------------------------------------------| score: " + nextPage.rank );
+		//System.out.println(currentPageUrl + "------------------------------------------------------------| score: " + nextPage.rank );
 		this.linksVisited.add(currentPageUrl);
 		this.linksVisited.add(currentPageUrl + "#"); 
 		try {
@@ -101,9 +101,7 @@ public class SiteCrawlerRunnable implements Runnable{
 
 	public void addLinks(String baseUrl,Elements links, String currentPageUrl) {
 		for (Element link : links) {
-			
 			String absUrl = link.absUrl("href").replace(" ", "%20");
-			
 			if(validateUrl(baseUrl,absUrl)) {
 				int linksCount = (int) links.stream().filter(e -> e.absUrl("href").equals(link.absUrl("href"))).count();
 				this.queue.add(new Link(absUrl, heuristic.score(link, currentPageUrl,linksCount)));
@@ -119,7 +117,7 @@ public class SiteCrawlerRunnable implements Runnable{
 	}
 
 	public void savePage(Document doc) throws IOException {
-		File f = new File(this.filePath + ThreadId + fileNameCounter + ".html");
+		File f = new File(this.filePath + webSiteName + fileNameCounter + ".html");
 		f.getParentFile().mkdirs();
 		Writer out = new OutputStreamWriter(new FileOutputStream(f), "UTF-8");
 		out.write(doc.outerHtml() + '\n');
@@ -144,5 +142,17 @@ public class SiteCrawlerRunnable implements Runnable{
 			e.printStackTrace();
 		}
 		return pageText;
+	}
+	
+	public int getFirstIndex(String siteBaseUrl) {
+		int firstIndex = 0;
+		if(siteBaseUrl.indexOf("www.") != -1) {
+			firstIndex = siteBaseUrl.indexOf("www.") + "www.".length();
+		}else if(siteBaseUrl.startsWith("https://")){
+			firstIndex = "https://".length();
+		}else if(siteBaseUrl.startsWith("http://")){
+			firstIndex = "http://".length();
+		}
+		return firstIndex;
 	}
 }

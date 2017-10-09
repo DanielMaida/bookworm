@@ -11,7 +11,6 @@ public class Main {
 		System.out.println("Running...");
 		List<String> baseUrls = new ArrayList<String>();
 		baseUrls.add("https://www.saraiva.com.br/");
-		baseUrls.add("https://www.mercadolivre.com.br/");
 		baseUrls.add("http://www.fnac.com.br/");
 		baseUrls.add("https://www.livrariacultura.com.br/");
 		baseUrls.add("http://www.casasbahia.com.br/");
@@ -20,6 +19,7 @@ public class Main {
 		baseUrls.add("https://www.americanas.com.br/");
 		baseUrls.add("https://www.submarino.com.br/");
 		baseUrls.add("http://www.magazineluiza.com.br/");
+		baseUrls.add("http://livraria.folha.com.br/");
 		
 		Iterator<String> it = baseUrls.iterator();
 		

@@ -9,7 +9,7 @@ import br.ufpe.cin.if962.factories.queues.QueueType;;
 public final class Config {
 	
 	public static String filePath = "../Pages/";
-	public static HeuristicType heuristicType =  HeuristicType.StardustCrusaders;
+	public static HeuristicType heuristicType =  HeuristicType.BFS;
 	public static int numberOfPages = 1000;
 	
 	
