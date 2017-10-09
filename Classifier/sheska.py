@@ -38,7 +38,7 @@ classifiers = [
 op = OptionParser()
 
 op.add_option("-c","--classifier", dest="chosen_classifier", default="naivebayes", 
-              help="The classifier name, it can be: \"naivebayes\", \"dectree\", \"svm\", \"logreg\" or \"mlp\".")
+              help="The classifier name, it can be: \"naive_bayes\", \"dectree\", \"svm\", \"logreg\" or \"mlp\".")
 
 op.add_option("--stemming", action="store_true",dest="stemming_enabled",
              help="Applies stemming in the dataset")
