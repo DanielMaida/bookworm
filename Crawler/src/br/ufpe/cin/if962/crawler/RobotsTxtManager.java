@@ -88,7 +88,6 @@ public class RobotsTxtManager {
 				
 			}
 		}
-		
 		return isAllowed;
 	}
 	
