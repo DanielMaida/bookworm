@@ -35,6 +35,8 @@ classifiers = [
                     hidden_layer_sizes=(5, 2), random_state=1)
 ]
 
+
+
 op = OptionParser()
 
 op.add_option("-c","--classifier", dest="chosen_classifier", default="naivebayes", 
@@ -60,9 +62,16 @@ argv = sys.argv[1:]
 def main():
     
     #load subsets
-    train_subset = load_files("dataset/") #training dataset
-    test_subset = load_files("test/")   #testing dataset
+    train_subset = None
+    test_subset = None
+    if not opt.stemming_enabled:
+        train_subset = load_files("dataset/")
+        test_subset = load_files("test/")
+    else:
+        train_subset = load_files("stemdata/")
+        test_subset = load_files("stemtest/")   
 
+    
     if opt.is_benchmark:
         runBenchmark(train_subset,test_subset)
     else:
