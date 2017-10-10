@@ -37,31 +37,31 @@ class Retrieve_data
 				end
 			end
 			if match_price =~ line && info.price_physical == ''
-				info.price_physical = (match_price.match line)[1]
+				info.price_physical = (match_price.match line)[1].force_encoding(::Encoding::UTF_8)
 			end
 			if match_isbn =~ line
-				info.isbn = (/>(.*)</.match file_lines[i + 1])[1].to_s
+				info.isbn = (/>(.*)</.match file_lines[i + 1])[1].to_s.force_encoding(::Encoding::UTF_8)
 			end
 			if match_weight =~ line
-				info.weight = (/>(.*)</.match file_lines[i + 1])[1].to_s
+				info.weight = (/>(.*)</.match file_lines[i + 1])[1].to_s.force_encoding(::Encoding::UTF_8)
 			end
 			if match_dimensions =~ line
-				info.dimensions = (/>(.*)</.match file_lines[i + 1])[1].to_s
+				info.dimensions = (/>(.*)</.match file_lines[i + 1])[1].to_s.force_encoding(::Encoding::UTF_8)
 			end
 			if match_especifications =~ line
-				info.especifications = (/>(.*)</.match file_lines[i + 1])[1].to_s
+				info.especifications = ((/>(.*)</.match file_lines[i + 1])[1].to_s.force_encoding(::Encoding::UTF_8))
 			end
 			if match_language =~ line
-				info.language = (/>(.*)</.match file_lines[i + 1])[1].to_s
+				info.language = (/>(.*)</.match file_lines[i + 1])[1].to_s.force_encoding(::Encoding::UTF_8)
 			end
 			if match_year =~ line
-				info.year = (/>(.*)</.match file_lines[i + 1])[1].to_s
+				info.year = (/>(.*)</.match file_lines[i + 1])[1].to_s.force_encoding(::Encoding::UTF_8)
 			end
 			if match_edition =~ line
-				info.edition = (/>(.*)</.match file_lines[i + 1])[1].to_s
+				info.edition = (/>(.*)</.match file_lines[i + 1])[1].to_s.force_encoding(::Encoding::UTF_8)
 			end
 			if match_publisher =~ line
-				info.publisher = (/>(.*)</.match file_lines[i + 1])[1].to_s
+				info.publisher = (/>(.*)</.match file_lines[i + 1])[1].to_s.force_encoding(::Encoding::UTF_8)
 			end
 		end
 		info
