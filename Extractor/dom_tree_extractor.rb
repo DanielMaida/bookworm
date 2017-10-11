@@ -47,8 +47,7 @@ class Dom_tree_extractor
 				end
 			end
 		end
-		puts 'result:'
-		puts data_array
+		data_array
 	end
 
 	#- fnac miss 
@@ -99,11 +98,10 @@ class Dom_tree_extractor
 				end
 			end
 		end
-		puts 'result:'
-		puts data_array
+		data_array
 	end
 	
-    #- fnac miss 
+    #- fnac miss
 	#- cultura hit
 	#- saraiva miss 
 	#- casas bahia hit
@@ -164,8 +162,7 @@ class Dom_tree_extractor
 				end
 			end
 		end
-		puts 'result:'
-		puts data_array
+		data_array
 	end
 
 end

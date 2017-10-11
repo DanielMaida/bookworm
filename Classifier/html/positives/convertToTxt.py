@@ -1,5 +1,8 @@
 from bs4 import BeautifulSoup as bs
+from nltk.stem.snowball import SnowballStemmer
 import glob as g
+
+stemmer = SnowballStemmer("portuguese")
 
 def parseHTMLPage(html):
     soup = bs(html,'html.parser')
@@ -7,7 +10,7 @@ def parseHTMLPage(html):
         script.extract()
     raw_content = soup.getText().lower()
     
-    return raw_content
+    return stemmer.stem(raw_content)
 
 def main():
     files = g.glob("*.html")

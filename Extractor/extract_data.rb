@@ -32,6 +32,24 @@ class Extract_data
 		   	    if !info.isbn.nil?
 		   	  	    text.push("ISBN: #{info.isbn}")
 		   	    end
+		   	    if !info.weight.nil?
+		   	    	text.push("Weight:#{info.weight}")
+		   	    end
+		   	    if !info.dimensions.nil?
+		   	    	text.push("Dimensions: #{info.dimensions}")
+		   	    end
+		   	    if !info.especifications.nil?
+		   	    	text.push("Especifications: #{info.especifications}")
+		   	    end
+		   	    if !info.language.nil?
+		   	    	text.push("Language: #{info.language}")
+		   	    end
+		   	    if !info.year.nil?
+		   	    	text.push("Published in: #{info.year}")
+		   	    end
+		   	    if !info.edition.nil?
+		   	    	text.push("Edition: #{info.edition}")
+		   	    end		   	    
 			end
    	  save_to_file(text, path)
 		end
