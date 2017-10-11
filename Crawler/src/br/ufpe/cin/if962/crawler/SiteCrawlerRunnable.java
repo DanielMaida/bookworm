@@ -121,7 +121,7 @@ public class SiteCrawlerRunnable implements Runnable{
 	}
 
 	public void savePage(Document doc) throws IOException {
-		File f = new File(this.filePath + webSiteName + fileNameCounter + ".html");
+		File f = new File(this.filePath +"/"+webSiteName+"/" + webSiteName + fileNameCounter + ".html");
 		f.getParentFile().mkdirs();
 		Writer out = new OutputStreamWriter(new FileOutputStream(f), "UTF-8");
 		out.write(doc.outerHtml() + '\n');

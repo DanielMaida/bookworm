@@ -18,8 +18,8 @@ public class Main {
 		baseUrls.add("https://www.estantevirtual.com.br/");
 		baseUrls.add("https://www.americanas.com.br/");
 		baseUrls.add("https://www.submarino.com.br/");
-		baseUrls.add("http://www.magazineluiza.com.br/");
 		baseUrls.add("http://livraria.folha.com.br/");
+		//baseUrls.add("http://www.magazineluiza.com.br/");
 		
 		Iterator<String> it = baseUrls.iterator();
 		
