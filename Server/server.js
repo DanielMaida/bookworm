@@ -1,5 +1,6 @@
 var express = require('express');
 var app = express();
+var linkIdMap = require("../InvertedFile/linkIdMap.json");
 
 // set the view engine to ejs
 app.set('view engine', 'ejs');
@@ -14,6 +15,8 @@ app.get('/', function(req, res) {
 	var other = query.other;
 	if(author){
 		//TO DO: query using these fields
+		//acesso como linkIdMap['0999'];
+		//lembrar de transformar @ em " antes de mandar de volta, ou na tela msm sei lá
 		res.render('pages/index', {renderResultTable:true, query:query, resultados:[]});
 	}else{
 		res.render('pages/index', {renderResultTable:false, query:query});
