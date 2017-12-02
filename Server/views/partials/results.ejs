@@ -20,11 +20,11 @@
 		<% resultados.forEach(function(resultado){ %>
 		<tr>
 			<td><%= resultado.author%></td>
-			<td><%= resultado.title%> R$</td>
+			<td><%= resultado.title%></td>
 			<td><%= resultado.publisher %></td>
 			<td><%= resultado.isbn %></th>
 			<td>
-				<a href=<%= resultado.link %> class="btn btn-sm">Link</a>
+				<a target="_blank" href=<%= resultado.link %> class="btn btn-link btn-sm">Link</a>
 			</td>			
 		</tr>
 		<%})%>
