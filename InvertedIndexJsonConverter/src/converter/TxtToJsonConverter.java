@@ -33,6 +33,9 @@ public class TxtToJsonConverter {
 		try (BufferedReader br = new BufferedReader(new FileReader(file))) {
 		    String line;
 		    while ((line = br.readLine()) != null) {
+		    	if(line.indexOf(",") == -1) //indexfile quebrado...
+		    		continue;
+		    	
 		    	line = line.replace('\u0022', '~'); //using ~ as placeholder for "
 		    	
 		    	String[] values = line.substring(lastIndexOfKey(line)+1).split(",");		    			    	
