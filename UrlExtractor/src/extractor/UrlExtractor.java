@@ -69,7 +69,7 @@ public class UrlExtractor {
 				fileName = fileName.substring(0,fileName.lastIndexOf('.'));
 				
 				String link = tail(file).substring(10);
-				link = link.replace('\u0022','@'); //uso @ como placeholder para ", para possibilitar o parse de json
+				link = link.replace('\u0022','~'); //using ~ as placeholder for "
 				
 				if(!firstIteration)
 					builder.append(",\n");
