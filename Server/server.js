@@ -21,7 +21,6 @@ app.get('/', function(req, res) {
 
 	if(author){
 		//TO DO: query using these fields
-		//lembrar de transformar @ em " antes de mandar de volta, ou na tela msm sei lá
 
 		//FAZER CHAMADA DO PYTHON PASSANDO OS PARAMS
 		/*const execSync = require('child_process').execSync;
@@ -62,7 +61,7 @@ function getResults(documentIds){
 	    		//iterar sobre as listas
 	    		var id = 0;	    		
 	    		invertedIndex[key].forEach(function(e,i){
-	    			id += e.id;
+	    			id += e.id;	    			
 	    			if(documentIds.includes(id.toString())){
 	    				var arrayIndex = results.findIndex(result => result.id == id);
 	    				key.replace(/~/g, "\"");
@@ -76,8 +75,7 @@ function getResults(documentIds){
 							results[arrayIndex].isbn = key.replace("isbn.","");											
 						}else if(key.startsWith("price")){
 							results[arrayIndex].price = "R$ " + key.replace("price.","");					
-						}
-	    			
+						}	    			
     			}});
 	    			
 	    	}else{
