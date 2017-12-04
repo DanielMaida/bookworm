@@ -17,6 +17,8 @@ app.get('/', function(req, res) {
 	var publisher = query.publisher;
 	var isbn = query.isbn;
 	var other = query.other;
+	var price = query.price;
+
 	if(author){
 		//TO DO: query using these fields
 		//lembrar de transformar @ em " antes de mandar de volta, ou na tela msm sei lá
@@ -50,35 +52,34 @@ function getResults(documentIds){
 	var results = [];
 	
 	documentIds.map(function(documentId){
-		results.push({id:documentId, linkIdMap:linkIdMap[documentId]});
+		results.push({id:documentId,author:"-",title:"-",publisher:"-", isbn:"-",price:"-", link:linkIdMap[documentId]});
 	});
-
-	//console.log(results);
 
 	for (var key in invertedIndex) {
 	    if (invertedIndex.hasOwnProperty(key)) {
 
 	    	if(!key.startsWith("other")){
 	    		//iterar sobre as listas
-	    		var id = 0;
-	    		
+	    		var id = 0;	    		
 	    		invertedIndex[key].forEach(function(e,i){
 	    			id += e.id;
-	    			if(documentIds.includes(id)){
+	    			if(documentIds.includes(id.toString())){
 	    				var arrayIndex = results.findIndex(result => result.id == id);
 	    				key.replace(/~/g, "\"");
-
 	    				if(key.startsWith("author")){							
 							results[arrayIndex].author = key.replace("author.","");
 						}else if(key.startsWith("title")){
-							results[arrayIndex].author = key.replace("title.","");
+							results[arrayIndex].title = key.replace("title.","");
 						}else if(key.startsWith("publisher")){
-							results[arrayIndex].author = key.replace("publisher.","");
+							results[arrayIndex].publisher = key.replace("publisher.","");
 						}else if(key.startsWith("isbn")){
-							results[arrayIndex].author = key.replace("isbn.","");					
+							results[arrayIndex].isbn = key.replace("isbn.","");											
+						}else if(key.startsWith("price")){
+							results[arrayIndex].price = "R$ " + key.replace("price.","");					
 						}
-	    			}
-	    		});	
+	    			
+    			}});
+	    			
 	    	}else{
 	    		//chegou no other
 	    		break;
