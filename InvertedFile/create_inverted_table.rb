@@ -58,22 +58,37 @@ require 'nokogiri'
 			end
 
 			if line.include?("Author")
-				author = normalize_author((/: (.*)/.match line)[1].to_s).capitalize
-				authors["author.#{author}"] = authors["author.#{author}"] + ["#{doc_name}"]
+				author = normalize_author((/: (.*)/.match line)[1].to_s)
+				author_raw = normalize_word(author)
+				author_values = author_raw.split(" ")
+				author_values.each do |author|
+					author = author.capitalize
+					authors["author.#{author}"] = (authors["author.#{author}"] + ["#{doc_name}"]).uniq
+				end
 			elsif line.include?("Title")
-				title = normalize_title((/: (.*)/.match line)[1].to_s).capitalize
-				titles["title.#{title}"] = titles["title.#{title}"] + ["#{doc_name}"]
+				title = normalize_title((/: (.*)/.match line)[1].to_s)
+				title_raw = normalize_word(title)
+				title_values = title_raw.split(" ")
+				title_values.each do |title|
+					title = title.capitalize
+					titles["title.#{title}"] = (titles["title.#{title}"] + ["#{doc_name}"]).uniq
+				end
 			elsif line.include?("Price")
 				price = (/: (.*)/.match line)[1].to_s
 				price = normalize_price(price)
-				prices["price.#{price}"] = prices["price.#{price}"] + ["#{doc_name}"]
+				prices["price.#{price}"] = (prices["price.#{price}"] + ["#{doc_name}"]).uniq
 			elsif line.include?("Publisher")
 				publisher = (/: (.*)/.match line)[1].to_s
-				publisher = normalize(publisher).capitalize
-				publishers["publisher.#{publisher}"] = publishers["publisher.#{publisher}"] + ["#{doc_name}"]
+				publisher = normalize(publisher)
+				publisher_raw = normalize_word(publisher)
+				publisher_values = publisher_raw.split(" ")
+				publisher_values.each do |publisher|
+					publisher = publisher.capitalize
+					publishers["publisher.#{publisher}"] = (publishers["publisher.#{publisher}"] + ["#{doc_name}"]).uniq
+				end
 			elsif line.include?("ISBN")
 				isbn = normalize_isbn((/: (.*)/.match line)[1].to_s)
-				isbns["isbn.#{isbn}"] = isbns["isbn.#{isbn}"] + ["#{doc_name}"]
+				isbns["isbn.#{isbn}"] = (isbns["isbn.#{isbn}"] + ["#{doc_name}"]).uniq
 			end
 		end
 		real_authors = Hash.new([])
