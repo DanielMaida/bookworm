@@ -8,21 +8,22 @@ import re
 import math 
 import sys
 
-number_of_docs = 2411
+number_of_docs = 2410
 docs_folder = "docs"
 spearman_file = "spearman.txt"
 vectorKeywordIndex = {}
 doc_vectors = {}
 
-index_path="inverted_index.txt"
+#index_path="inverted_index_test.txt"
+index_path="dummy_index.txt"
 
 op = OptionParser()
 
 op.add_option("-s", "--spearman", action="store_true", dest="spman", help="Runs the Spearman correlation between some predefined searches")
 
-op.add_option("-q","--query", dest="query_text",  help="The search query")
+op.add_option("-q","--query", dest="query_text",  help="The search query" , default="")
 
-op.add_option("-f","--fields", dest="search_fields",  help="The search fields in the format \"field,value\"")
+op.add_option("-f","--fields", dest="search_fields",  help="The search fields in the format \"field,value\"", default="")
 
 op.add_option("-t", "--tfidf", action="store_true", dest="tfidf_enabled", help="Enables the tfidf weight")
 
@@ -41,16 +42,19 @@ def calculate_vectors():
                 word = line.split(',')[0] # pega a palavra
                 for doc in docs_in_line: # pra cada documento na linha
                     doc_idx = doc.split("(")[0] # pega o id do documento
-                    word_tf = int(re.findall("\((.*?)\)",line)[0])
-                    print(word_tf)
-                    if doc_idx not in doc_vectors: # se nao tiver esse doc no dicionario
-                        doc_vectors[doc_idx] = [0] * len(vectorKeywordIndex) #inicializa ele 
-                    if(opt.tfidf_enabled):
-                        #insere o valor com peso tfidf daquela palavra na posicao dela no vetor correspondente a aquele doc
-                        doc_vectors[doc_idx][vectorKeywordIndex[word]] = word_tf * get_idf(word)
-                    else:
-                        #insere o valor do tf daquela palavra na posicao dela no vetor correspondente a aquele doc
-                        doc_vectors[doc_idx][vectorKeywordIndex[word]] = word_tf
+                    tf_raw = re.findall(doc_idx + "\((.*?)\)",line)
+                    if len(tf_raw) > 0:
+                        word_tf = int(tf_raw[0])
+                        if doc_idx not in doc_vectors: # se nao tiver esse doc no dicionario
+                            doc_vectors[doc_idx] = [0] * len(vectorKeywordIndex) #inicializa ele 
+                        if(opt.tfidf_enabled):
+                            #insere o valor com peso tfidf daquela palavra na posicao dela no vetor correspondente a aquele doc
+                            doc_vectors[doc_idx][vectorKeywordIndex[word]] = word_tf * get_idf(word)
+                        else:
+                            #insere o valor do tf daquela palavra na posicao dela no vetor correspondente a aquele doc
+                            doc_vectors[doc_idx][vectorKeywordIndex[word]] = word_tf
+                            
+                           
 
 
 
@@ -62,18 +66,17 @@ def boot_search_index(index_file):
     with open(index_file, "r", encoding="utf-8", errors='ignore') as index:
         offset = 0
         for line in index:
-            if line not in ['\n', '\r\n']:
-                word = line.split(",")[0]
-                global vectorKeywordIndex
-                vectorKeywordIndex[word] = offset
-                offset += 1
+            #if line not in ['\n', '\r\n']:
+            word = line.split(",")[0]
+            global vectorKeywordIndex
+            vectorKeywordIndex[word] = offset
+            offset += 1
 
 
 
 #Faz a busca
 def ranked_search(query):
     query_vector = query_to_vector(query)
-    print(query_vector)
     ratings = [(doc,cosine(query_vector, doc_vectors[doc])) for doc in doc_vectors]
     ratings.sort(key=(lambda x: x[1]), reverse=True) #sorting pelo rank
     return ratings
@@ -154,22 +157,19 @@ def calculate_spearman(doclist):
 def main():
     boot_search_index(index_path)
     calculate_vectors()
-    print(doc_vectors)
     if(opt.spman):
         calculate_spearman(document_list)
     else:
-        #free_query = " ".join(["other." + word for word in opt.query_text.split()])
-        #field_query = "".join(opt.search_fields) 
+        free_query = " ".join(["other." + word for word in opt.query_text.split()])
+        field_query = "".join(opt.search_fields) 
         
-        #query = free_query + " " + field_query
-
-        #print(query)
-
-        query = opt.query_text
+        query = free_query + " " + field_query
 
         ranked_results = ranked_search(query)
         ranked_docs = [doc for doc,rank in ranked_results]
-        print(ranked_docs)
+        with open("queryResults.txt", "w") as res:
+            for id in ranked_docs:
+                res.write(id + "\n")
 
 if __name__ == '__main__':
     main()
