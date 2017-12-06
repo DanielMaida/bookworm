@@ -12,9 +12,9 @@ number_of_docs = 2411
 docs_folder = "docs"
 spearman_file = "spearman.txt"
 vectorKeywordIndex = {}
-tfKeywordIndex = {}
+doc_vectors = {}
 
-index_path="index.txt"
+index_path="inverted_index.txt"
 
 op = OptionParser()
 
@@ -26,17 +26,44 @@ op.add_option("-f","--fields", dest="search_fields",  help="The search fields in
 
 op.add_option("-t", "--tfidf", action="store_true", dest="tfidf_enabled", help="Enables the tfidf weight")
 
+op.add_option("-v", "--boot_vector", action="store_true", dest="create_vectors", help="Creates the vectors")
+
 
 argv = sys.argv[1:]
 (opt, args) = op.parse_args(argv)
 
+def calculate_vectors():
+    global doc_vectors
+    with open(index_path, "r", encoding="utf-8", errors='ignore') as idx:
+        for line in idx: #para cada linha no indice invertido
+            if line not in ['\n', '\r\n']: # se a linha nao for vazia
+                docs_in_line = line.split(",")[1:] # pega os documentos junto com o tf
+                word = line.split(',')[0] # pega a palavra
+                for doc in docs_in_line: # pra cada documento na linha
+                    doc_idx = doc.split("(")[0] # pega o id do documento
+                    word_tf = int(re.findall("\((.*?)\)",line)[0])
+                    print(word_tf)
+                    if doc_idx not in doc_vectors: # se nao tiver esse doc no dicionario
+                        doc_vectors[doc_idx] = [0] * len(vectorKeywordIndex) #inicializa ele 
+                    if(opt.tfidf_enabled):
+                        #insere o valor com peso tfidf daquela palavra na posicao dela no vetor correspondente a aquele doc
+                        doc_vectors[doc_idx][vectorKeywordIndex[word]] = word_tf * get_idf(word)
+                    else:
+                        #insere o valor do tf daquela palavra na posicao dela no vetor correspondente a aquele doc
+                        doc_vectors[doc_idx][vectorKeywordIndex[word]] = word_tf
+
+
+
+
+
+
 #Coloca na memoria o indice invertido e monta ele num dicionario pra achar mais facil
 def boot_search_index(index_file):
-    with open(index_file, "r") as index:
+    with open(index_file, "r", encoding="utf-8", errors='ignore') as index:
         offset = 0
         for line in index:
             if line not in ['\n', '\r\n']:
-                word = line.split(",")[0].split(".")[1]
+                word = line.split(",")[0]
                 global vectorKeywordIndex
                 vectorKeywordIndex[word] = offset
                 offset += 1
@@ -44,8 +71,10 @@ def boot_search_index(index_file):
 
 
 #Faz a busca
-def ranked_search(query, documents):
-    ratings = [(doc,cosine(query_to_vector(query), doc_to_vector(doc))) for doc in documents]
+def ranked_search(query):
+    query_vector = query_to_vector(query)
+    print(query_vector)
+    ratings = [(doc,cosine(query_vector, doc_vectors[doc])) for doc in doc_vectors]
     ratings.sort(key=(lambda x: x[1]), reverse=True) #sorting pelo rank
     return ratings
 
@@ -68,30 +97,32 @@ def query_to_vector(query):
     return vector
 
 
+
 #Transforma o documento pra vetor para o calculo do cosseno
-def doc_to_vector(document): 
-    vector = [0] * len(vectorKeywordIndex) 
-    with open(document, "r") as doc:
-        word_list = doc.read().lower().split()
-        for word in word_list:
-            if word in vectorKeywordIndex:
-                if(opt.tfidf_enabled):
-                    vector[vectorKeywordIndex[word]] = get_tf(word,document) * get_idf(word)
-                else:
-                    vector[vectorKeywordIndex[word]] = get_tf(word,document)
-    return vector
+#def doc_to_vector(document): 
+#    vector = [0] * len(vectorKeywordIndex) 
+#    with open(document, "r") as doc:
+#        word_list = doc.read().lower().split()
+#        for word in word_list:
+#            if word in vectorKeywordIndex:
+#                if(opt.tfidf_enabled):
+#                    vector[vectorKeywordIndex[word]] = get_tf(word,document) * get_idf(word)
+#                else:
+#                    vector[vectorKeywordIndex[word]] = get_tf(word,document)
+#    return vector
 
 #Pega o TF do indice invertido
-def get_tf(word, doc): 
-    with open(index_path, "r") as index:
-        line = return_line(index, word)
-        regex = doc.split(".")[0].split("/")[1] + "\((.*?)\)"
-        tf = re.findall(regex,line)[0]
-        return float(tf)
+#def get_tf(word, doc): 
+#    with open(index_path, "r") as index:
+#        line = return_line(index, word)
+#        print(line)
+#        regex = doc.split(".")[0].split("/")[1] + "\((.*?)\)"
+#        tf = re.findall(regex,line)[0]
+#        return float(tf)
 
 #Pega o IDF do indice invertido 
 def get_idf(word):
-    with open(index_path, "r") as index:
+    with open(index_path, "r",encoding="utf-8", errors='ignore') as index:
         line = return_line(index,word)
         regex = "\((.*?)\)"
         count = re.findall(regex,line)
@@ -105,8 +136,9 @@ def get_idf(word):
 #Retorna a linha que contem uma determinada palavra em um doc
 def return_line(document, word):
     for line in document:
-        if word in line:
-            return line    
+        if line not in ['\n', '\r\n']:
+            if word in line:
+                return line    
 
 def calculate_spearman(doclist):
     i = 1
@@ -121,10 +153,8 @@ def calculate_spearman(doclist):
 
 def main():
     boot_search_index(index_path)
-    document_list = []
-    for dirct, subdir, files in os.walk(docs_folder):
-        for f in files:
-            document_list.append(os.path.join(dirct,f)) 
+    calculate_vectors()
+    print(doc_vectors)
     if(opt.spman):
         calculate_spearman(document_list)
     else:
@@ -137,7 +167,7 @@ def main():
 
         query = opt.query_text
 
-        ranked_results = ranked_search(query,document_list)
+        ranked_results = ranked_search(query)
         ranked_docs = [doc for doc,rank in ranked_results]
         print(ranked_docs)
 
