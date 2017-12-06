@@ -35,31 +35,31 @@ public class UrlExtractor {
 				String fileName = file.getName();
 				switch (file.getParent().substring(9)) {
 				case "casasbahia":					
-					fileName = "0"+fileName.substring("casasbahia".length());
+					fileName = "1"+fileName.substring("casasbahia".length());
 					break;
 					
 				case "estantevirtual":					
-					fileName = "1"+fileName.substring("estantevirtual".length());
+					fileName = "2"+fileName.substring("estantevirtual".length());
 					break;
 					
 				case "livrariacultura":					
-					fileName = "2"+fileName.substring("livrariacultura".length());
+					fileName = "3"+fileName.substring("livrariacultura".length());
 					break;
 					
 				case "livrariafolha":					
-					fileName = "3"+fileName.substring("livrariafolha".length());
+					fileName = "4"+fileName.substring("livrariafolha".length());
 					break;
 					
 				case "saraiva":					
-					fileName = "4"+fileName.substring("saraiva".length());
+					fileName = "5"+fileName.substring("saraiva".length());
 					break;
 					
 				case "submarino":					
-					fileName = "5"+fileName.substring("submarino".length());
+					fileName = "6"+fileName.substring("submarino".length());
 					break;
 					
 				case "amazon":					
-					fileName = "6"+fileName.substring("amazon".length());
+					fileName = "7"+fileName.substring("amazon".length());
 					break;
 					
 				default:
@@ -69,7 +69,7 @@ public class UrlExtractor {
 				fileName = fileName.substring(0,fileName.lastIndexOf('.'));
 				
 				String link = tail(file).substring(10);
-				link = link.replace('\u0022','@'); //uso @ como placeholder para ", para possibilitar o parse de json
+				link = link.replace('\u0022','~'); //using ~ as placeholder for "
 				
 				if(!firstIteration)
 					builder.append(",\n");

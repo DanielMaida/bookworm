@@ -46,10 +46,23 @@
 					</div>
 
 					<div class="form-group">
-						<label for="other">Other:</label>
-						<input type="textarea" value="<%= query.other %>" class="form-control" id="other" name="other">
+						<label for="other">Price:</label>
+						<select class="form-control" id="price" name="price">
+							<%
+							var options = [ "(40, 80]", "(80, 120]", "(120, 160]", "(160, 200]", "(200, ]"];
+							for ( var i = 0; i < options.length; i++ )
+							{
+							    var selected = ( query.price == options[i] ) ? "selected" : "";
+							    %><option value="<%=options[ i ] %>" <%=selected %>><%=options[i] %></option><%
+							}
+							%>
+						</select>						
 					</div>
 
+					<div class="form-group">
+						<label for="other">Keyword Search:</label>
+						<input type="text" value="<%= query.other %>" class="form-control" id="other" name="other">
+					</div>
 
 					<div class="form-group">
 						<input type="submit" style="float:right" value="Search" class="btn btn-success">
