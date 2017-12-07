@@ -1,3 +1,25 @@
+<% if(recommendations.hasRecommendations){ %>
+	<h4>
+		Similar Searches:
+		<% if (recommendations.author) {%> 
+			</br>
+			Authors: <%=recommendations.author%>
+
+		<%}%>
+		
+		<% if (recommendations.title) {%>
+			</br>
+			 Books: <%=recommendations.title%>
+		<%}%>
+		
+		<% if (recommendations.publisher) {%>
+			</br>
+			 Publishers: <%=recommendations.publisher%>
+		<%}%>
+	</h4>
+	</br>
+<% } %>
+
 <table class="table table-striped table-bordered">
 	<thead>
 		<tr>
