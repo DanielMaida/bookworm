@@ -7,7 +7,7 @@ var fs = require('fs');
 var readline = require('readline');
 var util = require('util');
 
-var NUMBEROFDOCUMENTS = 7000;
+var NUMBEROFDOCUMENTS = 2410;
 
 if(!fs.existsSync("../InvertedFile/mutualInfo.json")){
 	processMutualInfo();
@@ -20,11 +20,11 @@ app.set('view engine', 'ejs');
 // index page 
 app.get('/', function(req, res) {
 	var query = req.query;
-	var author = query.author;
-	var title = query.title;
-	var publisher = query.publisher;
-	var isbn = query.isbn;
-	var other = query.other;
+	var author = query.author.toLowerCase();
+	var title = query.title.toLowerCase();
+	var publisher = query.publisher.toLowerCase();
+	var isbn = query.isbn; // number
+	var other = query.other.toLowerCase();
 	var price = query.price;
 
 	if(author){
@@ -39,13 +39,10 @@ app.get('/', function(req, res) {
 		    console: false
 		});
 
-		//ler até chegar em other..., só ler a lista uma vez, juntar tudo num objeto mandar para a tabela de respostas =)
-
 		var documentIds = [];
 		rd.on('line', function(line) {
 			documentIds.push(line);					  
-		}).on('close', function() {		
-				//resultados.push({author:"",title:"",publisher:"",isbn:"",link:linkIdMap[line].replace(/~/g, "\"")});//espero que funcione =|		    			    	
+		}).on('close', function() {		  			    	
 		    	res.render('pages/index', {renderResultTable:true, query:query, resultados:getResults(documentIds), recommendations:getRecommendations(author,title,publisher)});
 		});
 		
@@ -84,7 +81,7 @@ function getResults(documentIds){
 	var results = [];
 	
 	documentIds.map(function(documentId){
-		results.push({id:documentId,author:"-",title:"-",publisher:"-", isbn:"-",price:"-", link:linkIdMap[documentId]});
+		results.push({id:documentId,author:"-",title:"-",publisher:"-", isbn:"-",price:"-", link:linkIdMap[documentId].replace(/~/g, "\"")});
 	});
 
 	//Remontando atributos do documento a partir do indice invertido, porque não tenho acesso aos pares de atributo-valor
