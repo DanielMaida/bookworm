@@ -20,13 +20,27 @@ app.set('view engine', 'ejs');
 // index page 
 app.get('/', function(req, res) {
 	var query = req.query;
-	var author = query.author.toLowerCase();
-	var title = query.title.toLowerCase();
-	var publisher = query.publisher.toLowerCase();
+	
+	var author = query.author
+	if(author)
+		author = author.toLowerCase();	
+	
+	var title = query.title;
+	if(title)
+		title = title.toLowerCase();
+	
+	var publisher = query.publisher;
+	if(publisher)
+		publisher = publisher.toLowerCase();
+	
 	var isbn = query.isbn; // number
-	var other = query.other.toLowerCase();
-	var price = query.price;
+	
+	var other = query.other;
+	if(other)
+		other = other.toLowerCase();
 
+	var price = query.price;
+	
 	if(author){
 		//TO DO: query using these fields
 
