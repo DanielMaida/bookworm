@@ -2,17 +2,17 @@ var express = require('express');
 var app = express();
 var linkIdMap = require("../InvertedFile/linkIdMap.json");
 var invertedIndex = require("../InvertedFile/inverted-index.json");
+var reverseEngineerAtributeFile = require("../InvertedFile/inverted_index-old.json");
 var fs = require('fs');
 var readline = require('readline');
 var util = require('util');
 
 var NUMBEROFDOCUMENTS = 7000;
 
-if(fs.existsSync("../InvertedFile/mutualInfo.json")){
-	var mutualInfoWords = require("../InvertedFile/mutualInfo.json");
-}else{
+if(!fs.existsSync("../InvertedFile/mutualInfo.json")){
 	processMutualInfo();
 }
+var mutualInfoWords = require("../InvertedFile/mutualInfo.json");
 
 // set the view engine to ejs
 app.set('view engine', 'ejs');
@@ -87,13 +87,14 @@ function getResults(documentIds){
 		results.push({id:documentId,author:"-",title:"-",publisher:"-", isbn:"-",price:"-", link:linkIdMap[documentId]});
 	});
 
-	for (var key in invertedIndex) {
-	    if (invertedIndex.hasOwnProperty(key)) {
+	//Remontando atributos do documento a partir do indice invertido, porque não tenho acesso aos pares de atributo-valor
+	for (var key in reverseEngineerAtributeFile) {
+	    if (reverseEngineerAtributeFile.hasOwnProperty(key)) {
 
 	    	if(!key.startsWith("other")){
 	    		//iterar sobre as listas
 	    		var id = 0;	    		
-	    		invertedIndex[key].forEach(function(e,i){
+	    		reverseEngineerAtributeFile[key].forEach(function(e,i){
 	    			id += e.id;	    			
 	    			if(documentIds.includes(id.toString())){
 	    				var arrayIndex = results.findIndex(result => result.id == id);
