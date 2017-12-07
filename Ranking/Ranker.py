@@ -42,9 +42,13 @@ def create_vectors():
             if line not in ['\n', '\r\n']: # se a linha nao for vazia
                 docs_in_line = line.split(",")[1:] # pega os documentos junto com o tf
                 word = line.split(',')[0] # pega a palavra
+                prev = 0
                 for doc in docs_in_line: # pra cada documento na linha
-                    doc_idx = doc.split("(")[0] # pega o id do documento
-                    tf_raw = re.findall(doc_idx + "\((.*?)\)",line)
+                    curr = int(doc.split("(")[0])
+                    doc_idx = curr + prev # pega o id do documento
+                    #print(curr, " ", "+", prev, " ", "=",doc_idx)
+                    prev = doc_idx
+                    tf_raw = re.findall(str(curr) + "\((.*?)\)",line)
                     if len(tf_raw) > 0:
                         word_tf = int(tf_raw[0])
                         if doc_idx not in doc_vectors: # se nao tiver esse doc no dicionario
@@ -170,7 +174,7 @@ def main():
         #print("second query")
         with open("queryResults.txt", "w") as res:
             for id in ranked_docs:
-                res.write(id + "\n")
+                res.write(str(id) + "\n")
 
 if __name__ == '__main__':
     main()
