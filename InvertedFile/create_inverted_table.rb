@@ -22,6 +22,7 @@ require 'nokogiri'
 
 		html_lines.each do |html_word|
 			word = normalize_word(html_word)
+			word = word.force_encoding('utf-8')
 			match = false
 			if (/\#\#\#\#\#\#.*\#\#\#\#\#\#/ =~ word)
 				html_name = (/\#\#\#\#\#\#(.*)\#\#\#\#\#\#/.match word)[1].to_s
@@ -43,10 +44,14 @@ require 'nokogiri'
 				end
 				other_pos = "other.#{word}"
 				if match
-					others["other.#{word}"][i] = "#{html_name}(#{frequency[other_pos][html_name] + 1})"
-					frequency["other.#{word}"][html_name] = frequency["other.#{word}"][html_name] + 1
+					if word.ascii_only?
+						others["other.#{word}"][i] = "#{html_name}(#{frequency[other_pos][html_name] + 1})"
+						frequency["other.#{word}"][html_name] = frequency["other.#{word}"][html_name] + 1
+					end
 				else
-					others["other.#{word}"] = others["other.#{word}"] + ["#{html_name}(#{frequency[other_pos][html_name]})"]
+					if word.ascii_only?
+						others["other.#{word}"] = others["other.#{word}"] + ["#{html_name}(#{frequency[other_pos][html_name]})"]
+					end
 				end
 			end
 		end
@@ -63,7 +68,9 @@ require 'nokogiri'
 				author_values = author_raw.split(" ")
 				author_values.each do |author|
 					author = author.capitalize
-					authors["author.#{author}"] = (authors["author.#{author}"] + ["#{doc_name}"]).uniq
+					if author.ascii_only?
+						authors["author.#{author}"] = (authors["author.#{author}"] + ["#{doc_name}"]).uniq
+					end
 				end
 			elsif line.include?("Title")
 				title = normalize_title((/: (.*)/.match line)[1].to_s)
@@ -71,7 +78,9 @@ require 'nokogiri'
 				title_values = title_raw.split(" ")
 				title_values.each do |title|
 					title = title.capitalize
-					titles["title.#{title}"] = (titles["title.#{title}"] + ["#{doc_name}"]).uniq
+					if title.ascii_only?
+						titles["title.#{title}"] = (titles["title.#{title}"] + ["#{doc_name}"]).uniq
+					end
 				end
 			elsif line.include?("Price")
 				price = (/: (.*)/.match line)[1].to_s
@@ -84,7 +93,9 @@ require 'nokogiri'
 				publisher_values = publisher_raw.split(" ")
 				publisher_values.each do |publisher|
 					publisher = publisher.capitalize
-					publishers["publisher.#{publisher}"] = (publishers["publisher.#{publisher}"] + ["#{doc_name}"]).uniq
+					if publisher.ascii_only?
+						publishers["publisher.#{publisher}"] = (publishers["publisher.#{publisher}"] + ["#{doc_name}"]).uniq
+					end
 				end
 			elsif line.include?("ISBN")
 				isbn = normalize_isbn((/: (.*)/.match line)[1].to_s)
