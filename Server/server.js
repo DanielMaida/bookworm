@@ -2,9 +2,17 @@ var express = require('express');
 var app = express();
 var linkIdMap = require("../InvertedFile/linkIdMap.json");
 var invertedIndex = require("../InvertedFile/inverted-index.json");
+var fs = require('fs');
+var readline = require('readline');
+var util = require('util');
 
-var fs = require('fs'),
-    readline = require('readline');   
+var NUMBEROFDOCUMENTS = 7000;
+
+if(fs.existsSync("../InvertedFile/mutualInfo.json")){
+	var mutualInfoWords = require("../InvertedFile/mutualInfo.json");
+}else{
+	processMutualInfo();
+}
 
 // set the view engine to ejs
 app.set('view engine', 'ejs');
@@ -38,7 +46,7 @@ app.get('/', function(req, res) {
 			documentIds.push(line);					  
 		}).on('close', function() {		
 				//resultados.push({author:"",title:"",publisher:"",isbn:"",link:linkIdMap[line].replace(/~/g, "\"")});//espero que funcione =|		    			    	
-		    	res.render('pages/index', {renderResultTable:true, query:query, resultados:getResults(documentIds)});
+		    	res.render('pages/index', {renderResultTable:true, query:query, resultados:getResults(documentIds), recommendations:getRecommendations(author,title,publisher)});
 		});
 		
 	}else{
@@ -46,6 +54,31 @@ app.get('/', function(req, res) {
 	}
 
 });
+
+function getRecommendations(author,title,publisher){
+	var result = {};
+	author = "author." + author;
+	title = "title." + title;
+	publisher = "publisher." + publisher;
+
+	if(mutualInfoWords[author])
+		result.author = mutualInfoWords[author].map(function(e){
+			return e.substring(e.indexOf(".")+1);
+		}).join(", ");
+	
+	if(mutualInfoWords[title])
+		result.title = mutualInfoWords[title].map(function(e){
+			return e.substring(e.indexOf(".")+1);
+		}).join(", ");
+	
+	if(mutualInfoWords[publisher])
+		result.publisher = mutualInfoWords[publisher].map(function(e){
+			return e.substring(e.indexOf(".")+1);
+		}).join(", ");
+
+	result.hasRecommendations = !(!result.author && !result.title && !result.publisher);;
+	return result;
+}
 
 function getResults(documentIds){
 	var results = [];
@@ -88,9 +121,63 @@ function getResults(documentIds){
 	return results;
 }
 
-function getSuggestions(word){
+function processMutualInfo(){
+	var result = {};
+	for (var key in invertedIndex) {
+	    if (invertedIndex.hasOwnProperty(key)) {
+	    	if(key.startsWith("other")){
+	    		break;
+	    	}	    
+	    	var mutualInfoList = calculateMutualInfo(key);
+	    	
+	    	mutualInfoList = mutualInfoList.sort(function(a,b){return a["mutualInfo"]-b["mutualInfo"]});
+	    	mutualInfoList = mutualInfoList.slice(0,3).map(function(e){
+				return e["word"];
+			});
 
+	    	if(mutualInfoList.length != 0){
+	    		result[key] = mutualInfoList;
+	    	}		
+	    }
+	}
 
+	fs.writeFileSync("../InvertedFile/mutualInfo.json",JSON.stringify(result),'utf-8');
+}
+	
+function calculateMutualInfo(word){
+	var type = word.substring(0,word.indexOf("."));
+	var mutualInfoListForWord = [];
+	var PA = invertedIndex[word].length / NUMBEROFDOCUMENTS;
+
+	for (var key in invertedIndex) {
+	    if (invertedIndex.hasOwnProperty(key)) {
+	    	if(key.startsWith(type) && key != word){
+
+	    		var innerJoin = expandInvertedList(invertedIndex[word]).filter((id) => expandInvertedList(invertedIndex[key]).includes(id));	    
+	    		var PAB = innerJoin.length;
+	    		if(PAB == 0){ //não tem interseção
+	    			continue;
+	    		}
+	    		var PB = invertedIndex[key].length / NUMBEROFDOCUMENTS;
+	    		var mutualInfo = Math.log2(PAB/(PA*PB));
+	    		mutualInfoListForWord.push({"word":key,"mutualInfo":mutualInfo});
+
+	    	}else{
+	    		continue;
+	    	}
+		}
+	}
+	return mutualInfoListForWord;
+}
+
+function expandInvertedList(indexes){
+	var documentId = 0;
+	var result = [];
+	indexes.forEach(function(e,i){
+		documentId+= e.id;
+		result.push(documentId);
+	});
+	return result;
 }
 
 app.listen(8080);
